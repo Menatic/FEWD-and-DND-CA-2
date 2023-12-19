@@ -1,16 +1,11 @@
-// its make a favourites meal array if its not exist in local storage
 if (localStorage.getItem("favouritesList") == null) {
     localStorage.setItem("favouritesList", JSON.stringify([]));
 }
-
-// its fetch meals from api and return it
 async function fetchMealsFromApi(url,value) {
     const response=await fetch(`${url+value}`);
     const meals=await response.json();
     return meals;
 }
-
-// its show's all meals card in main acording to search input value
 function showMealList(){
     let inputValue = document.getElementById("my-search").value;
     let arr=JSON.parse(localStorage.getItem("favouritesList"));
@@ -33,7 +28,7 @@ function showMealList(){
                     <div class="card-body">
                         <h5 class="card-title">${element.strMeal}</h5>
                         <div class="d-flex justify-content-between mt-5">
-                            <button type="button" class="btn btn-outline-light" onclick="showMealDetails(${element.idMeal})">More Details</button>
+                            <button type="button" class="btn btn-outline-light" onclick="showMealDetails(${element.idMeal})">Information</button>
                             <button id="main${element.idMeal}" class="btn btn-outline-light active" onclick="addRemoveToFavList(${element.idMeal})" style="border-radius:50%"><i class="fa-solid fa-heart"></i></button>
                         </div>
                     </div>
@@ -46,7 +41,7 @@ function showMealList(){
                     <div class="card-body">
                         <h5 class="card-title">${element.strMeal}</h5>
                         <div class="d-flex justify-content-between mt-5">
-                            <button type="button" class="btn btn-outline-light" onclick="showMealDetails(${element.idMeal})">More Details</button>
+                            <button type="button" class="btn btn-outline-light" onclick="showMealDetails(${element.idMeal})">Information</button>
                             <button id="main${element.idMeal}" class="btn btn-outline-light" onclick="addRemoveToFavList(${element.idMeal})" style="border-radius:50%"><i class="fa-solid fa-heart"></i></button>
                         </div>
                     </div>
@@ -60,9 +55,9 @@ function showMealList(){
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-md-12 text-center">
-                            <span class="display-1 d-block">404</span>
+                            <span class="display-1 d-block">TSK TSK TSK</span>
                             <div class="mb-4 lead">
-                                The meal you are looking for was not found.
+                                The meal you are looking for is not found.
                             </div>
                         </div>
                     </div>
@@ -74,12 +69,10 @@ function showMealList(){
     });
 }
 
-// its shows full meal details in main
 async function showMealDetails(id) {
     let url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
     let html = "";
     await fetchMealsFromApi(url, id).then((data) => {
-        // Get ingredients list
         const ingredientsList = getIngredientsList(data.meals[0]);
 
         html += `
